@@ -1,17 +1,21 @@
 # CAD notes
 
-`case.scad` is a parametric OpenSCAD starter for a rounded, direct-view OLED keychain with a rear cover. It is intentionally an initial concept: the provided board screenshots do not establish physical scale, OLED-module dimensions, battery dimensions, switch location, or connector height.
+This version is a more compact direct-view OLED keychain concept: a rounded enclosure with a large front OLED window, a slim slide-switch opening, and a top keyring loop. It is still a design starting point rather than a verified fit, because the exact PCB outline, OLED board dimensions, battery dimensions, and switch body dimensions were not supplied.
 
-## Measure before finalizing
+## Recommended measurements before final printing
 
-- PCB outer width/height/thickness and mounting-hole centres/diameters
-- OLED module board width/height/thickness and active display window position
-- Battery length/width/thickness, lead exit direction, and bend clearance
-- Slide-switch body, actuator travel, and required access slot
-- USB connector and any headers/components that need access or headroom
+- OLED module board size, active display size, and bezel thickness
+- PCB outline and mounting-hole geometry
+- Battery length/width/thickness and lead direction
+- Switch body length/width and the required operation clearance
+- Any connector or charging/protection hardware that must sit inside the case
 
-Update the matching parameters and add suitable PCB supports, switch opening, and connector access only after those measurements are known. Check that the front aperture exposes the active pixels without covering the display bezel. Keep the battery from being pinched by the cover.
+## Tuning notes
 
-## Preview/export
+- Increase `window_w` and `window_h` if you want a larger visible display area.
+- Increase `case_w` and `case_h` if you want more internal space for a larger battery.
+- Adjust `switch_slot_w`, `switch_slot_h`, and `switch_pos_x` to fit the actual switch.
+- Use `tol` to tune the friction fit on your printer.
+- If the cover is too loose or too tight, alter `tol` and the cover recess dimensions.
 
-Open `case.scad` in OpenSCAD. Set `part` to `"body"` or `"cover"`, render (F6), then export each part as STL. Print a fit-check first; tune `cover_clearance` for your printer. The current model does not include confirmed PCB standoffs or a switch cutout.
+The file is ready for OpenSCAD preview and export to STL. Print a quick fit-check before committing to your final version.

@@ -1,83 +1,111 @@
-// Parametric two-piece enclosure concept for a direct-view OLED keychain.
-// This is an adjustable prototype, NOT a verified fit. Measure all real parts
-// and update the parameters before printing. Units: millimetres.
+// Direct-view OLED keychain case concept
+// Revised for a compact keychain with a large OLED front window,
+// a battery cavity, and a slim rear cover.
+// Units: millimetres
 
 $fn = 64;
-part = "body"; // "body", "cover", or "both"
+part = "both"; // "body", "cover", or "both"
 
-// Initial envelope assumptions — revise against your actual PCB/module.
-body_w = 54;
-body_h = 60;                 // enclosure body, excluding the keyring loop
-body_d = 12;
+tol = 0.5;                // general fit tolerance
+wall = 1.8;
+front_thick = 1.6;
+cover_thick = 2.2;
+case_thick = 12;
 corner_r = 6;
-wall = 2;
-front = 2;
-cover_t = 2;
-cover_clearance = 0.25;      // tune for printer/material
 
-// Keep the OLED window sized to the ACTIVE display area, not the module PCB.
-// A common 1.3-inch 128x64 panel is about 30 x 15 mm active; verify yours.
-window_w = 31;
-window_h = 16;
-window_y = 5;                // positive is toward the top of the case
+case_w = 58;
+case_h = 62;
+case_d = 12;
 
-// Internal cavity placeholder: check against PCB, connectors, battery and wires.
-cavity_w = body_w - 2*wall;
-cavity_h = body_h - 2*wall;
+window_w = 34;
+window_h = 18;
+window_y = 4;             // move window upward in the body
 
-// Integrated keyring tab and hole.
-loop_outer_d = 15;
-loop_hole_d = 6;
-loop_overlap = 3;
+switch_slot_w = 7.5;
+switch_slot_h = 3.4;
+switch_pos_x = 18;
 
-module rounded_rect_2d(w,h,r) {
-    offset(r=r) square([w-2*r,h-2*r], center=true);
+loop_outer_d = 16;
+loop_hole_d = 6.2;
+loop_offset_y = case_h/2 + 4;
+
+battery_w = 30;
+battery_h = 46;
+battery_t = 6.5;
+
+module rounded_rect(size_x, size_y, r) {
+    offset(r = r)
+        square([size_x - 2*r, size_y - 2*r], center = true);
 }
 
-module body_outline_2d() {
+module body_outline() {
     union() {
-        rounded_rect_2d(body_w, body_h, corner_r);
-        translate([0, body_h/2 + loop_outer_d/2 - loop_overlap])
-            circle(d=loop_outer_d);
+        rounded_rect(case_w, case_h, corner_r);
+        translate([0, loop_offset_y, 0])
+            circle(d = loop_outer_d);
     }
 }
 
 module body() {
     difference() {
-        linear_extrude(height=body_d) body_outline_2d();
-        // Rear cavity opens from z=0, leaving the front face intact.
-        translate([0,0,-0.1])
-            linear_extrude(height=body_d-front+0.1)
-                rounded_rect_2d(cavity_w,cavity_h,max(2,corner_r-wall));
-        // Direct-view OLED aperture through the front face.
-        translate([0,window_y,body_d-front])
-            linear_extrude(height=front+0.2)
-                rounded_rect_2d(window_w,window_h,1.5);
-        // Keyring opening.
-        translate([0, body_h/2 + loop_outer_d/2 - loop_overlap, -0.1])
-            cylinder(d=loop_hole_d,h=body_d+0.2);
+        // outer shell
+        linear_extrude(height = case_d)
+            body_outline();
+
+        // main internal cavity (keeps wall thickness around the edges)
+        translate([0, 0, wall])
+            linear_extrude(height = case_d - wall + 0.2)
+                rounded_rect(case_w - 2*wall,
+                             case_h - 2*wall,
+                             max(2, corner_r - wall));
+
+        // front OLED aperture
+        translate([0, window_y, case_d - front_thick])
+            linear_extrude(height = front_thick + 0.5)
+                rounded_rect(window_w + tol, window_h + tol, 2.2);
+
+        // switch slot at the side of the case
+        translate([switch_pos_x, 0, case_d - front_thick])
+            linear_extrude(height = front_thick + 0.5)
+                square([switch_slot_w, switch_slot_h], center = true);
+
+        // keyring hole
+        translate([0, loop_offset_y, -0.1])
+            cylinder(d = loop_hole_d, h = case_d + 0.2);
+
+        // simple internal clearance for a thin PCB - only rough placeholder
+        translate([0, -4, wall + 0.9])
+            linear_extrude(height = 2.4)
+                rounded_rect(40, 28, 3);
     }
 }
 
 module cover() {
-    // Flat rear cover with a shallow register lip. Adjust clearance after test print.
-    union() {
-        linear_extrude(height=cover_t)
-            rounded_rect_2d(body_w-2*cover_clearance,
-                            body_h-2*cover_clearance,
-                            max(2,corner_r-cover_clearance));
-        translate([0,0,cover_t])
-            linear_extrude(height=1.2)
-                rounded_rect_2d(cavity_w-2*cover_clearance,
-                                cavity_h-2*cover_clearance,
-                                max(2,corner_r-wall-cover_clearance));
+    difference() {
+        linear_extrude(height = cover_thick)
+            rounded_rect(case_w, case_h, corner_r);
+
+        // inner recess so cover sits over shell body
+        translate([0, 0, 0.8])
+            linear_extrude(height = cover_thick)
+                rounded_rect(case_w - 2*wall,
+                             case_h - 2*wall,
+                             max(2, corner_r - wall));
+
+        // small hole for the switch actuator on the rear cover (optional)
+        translate([switch_pos_x, 0, -0.1])
+            linear_extrude(height = cover_thick + 0.2)
+                square([switch_slot_w + 1.5, switch_slot_h + 1.5], center = true);
     }
 }
 
-if (part == "body") body();
-if (part == "cover") cover();
-if (part == "both") {
+if (part == "body") {
     body();
-    // Display the cover beside the body for preview; export parts separately.
-    translate([body_w+5,0,0]) cover();
+}
+else if (part == "cover") {
+    cover();
+}
+else {
+    body();
+    translate([case_w + 12, 0, 0]) cover();
 }
