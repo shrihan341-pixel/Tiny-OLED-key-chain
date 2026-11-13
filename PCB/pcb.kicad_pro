@@ -1,0 +1,116 @@
+{
+  "board": {
+    "3dviewports": [],
+    "design_settings": {
+      "defaults": {
+        "board_outline_line_width": 0.05,
+        "copper_line_width": 0.2,
+        "copper_text_size_h": 1.5,
+        "copper_text_size_v": 1.5,
+        "copper_text_thickness": 0.3,
+        "fabrication_line_width": 0.1,
+        "fabrication_text_size_h": 1.0,
+        "fabrication_text_size_v": 1.0,
+        "fabrication_text_thickness": 0.15,
+        "other_line_width": 0.1,
+        "other_text_size_h": 1.0,
+        "other_text_size_v": 1.0,
+        "other_text_thickness": 0.15,
+        "silk_line_width": 0.1,
+        "silk_text_size_h": 1.0,
+        "silk_text_size_v": 1.0,
+        "silk_text_thickness": 0.1,
+        "zones": { "min_clearance": 0.5 }
+      },
+      "diff_pair_dimensions": [],
+      "drc_exclusions": [],
+      "meta": { "version": 2 },
+      "rule_severities": {
+        "annular_width": "error",
+        "clearance": "error",
+        "copy": "warning",
+        "copper_edge_clearance": "error",
+        "courtyards_overlap": "error",
+        "drill_out_of_range": "error",
+        "duplicate_footprints": "warning",
+        "extra_footprint": "warning",
+        "footprint": "error",
+        "hole_clearance": "error",
+        "invalid_outline": "error",
+        "missing_footprint": "warning",
+        "shorting_items": "error",
+        "text_height": "warning",
+        "text_thickness": "warning"
+      },
+      "rules": {
+        "min_clearance": 0.2,
+        "min_copper_edge_clearance": 0.5,
+        "min_hole_clearance": 0.25,
+        "min_hole_to_hole": 0.25,
+        "min_track_width": 0.2,
+        "min_via_annular_width": 0.1,
+        "min_via_diameter": 0.5,
+        "solder_mask_to_copper_clearance": 0.0
+      },
+      "track_widths": [],
+      "via_dimensions": []
+    },
+    "layer_presets": [],
+    "viewports": []
+  },
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "meta": {
+    "filename": "pcb.kicad_pro",
+    "version": 3
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "wire_width": 6
+      }
+    ],
+    "meta": { "version": 5 },
+    "net_colors": {},
+    "netclass_assignments": {},
+    "netclass_patterns": []
+  },
+  "pcbnew": {
+    "last_paths": {
+      "plot": "./",
+      "step": "pcb.step",
+      "vrml": ""
+    }
+  },
+  "schematic": {
+    "annotate_start_num": 1,
+    "bom_export_filename": "${PROJECTNAME}.csv",
+    "bom_settings": { "exclude_dnp": false, "fields_ordered": ["Reference", "Value", "Footprint", "Qty"], "group_symbols": true },
+    "bus_aliases": {},
+    "drawing": { "default_line_thickness": 6.0, "default_text_size": 50.0 },
+    "meta": { "version": 1 },
+    "page_layout_descr_file": "",
+    "plot_directory": "",
+    "reuse_designators": true,
+    "subpart_first_id": 65,
+    "top_level_sheets": [ { "filename": "pcb.kicad_sch", "name": "pcb", "uuid": "5a86c281-58d6-4fc5-b5fc-5c9d5c2dfdfc" } ],
+    "used_designators": "BAT1,J1,J2,SW1,U1"
+  },
+  "sheets": [ [ "5a86c281-58d6-4fc5-b5fc-5c9d5c2dfdfc", "pcb" ] ]
+}

@@ -1,14 +1,28 @@
 # PCB / electrical design status
 
-The repository does not currently contain a finalized KiCad project for the direct-view keychain. The information shared during planning includes a reference BOM and schematic for a different design: it names a 0.96-inch OLED, has no battery or slide switch shown, and was associated with a beam-splitter concept. It is not enough to create or validate the new 1.3-inch, LiPo-powered board, and it must not be presented as the new project's fabrication source.
+This folder contains a draft KiCad concept for the direct-view keychain project. It is intentionally an early concept and should not be treated as a fabrication-approved design. The exact OLED module, battery, switch, and enclosure fit have not been verified against real hardware.
 
-## Needed before PCB fabrication
+## Draft design intent
 
-1. Select the exact OLED module and verify its controller, interface, pinout, logic/supply voltage, and connector/mechanical dimensions from its datasheet.
-2. Select the exact battery and verify the XIAO board's battery input/charging behavior and limits against official documentation. Add only a correctly designed power/switch/charging arrangement; LiPo cells require suitable charging and protection.
-3. Decide whether the OLED connects by a cable/header or is mounted directly, then create the schematic and board with matching footprints.
-4. Draw the board outline and mounting features from the mechanical design; verify connector access and clearances in KiCad's 3D viewer.
-5. Run ERC and DRC, review all warnings/errors, and have the power circuit checked before ordering.
-6. Export Gerbers, drill files, and a production BOM only from the reviewed final board; inspect the exports in a Gerber viewer.
+- Controller: Seeed Studio XIAO ESP32-C3 SMD
+- Display: 0.96-inch I2C OLED module, 4-wire header style, consistent with the reference build
+- Battery: single-cell LiPo via JST or equivalent 2-pin connector
+- Power path: slide switch placed in the battery path before the XIAO board input
+- Form factor: compact keychain board sized for a printed case and a front display opening
 
-The pasted project-settings text alone is not the KiCad board file. A routed `.kicad_pcb` and matching schematic are required for an actual fabrication package.
+## Included files
+
+- `pcb.kicad_pro` — KiCad project metadata
+- `pcb.kicad_sch` — draft electrical schematic
+- `pcb.kicad_pcb` — draft board layout
+
+## Before fabrication or submission
+
+1. Confirm the exact OLED module datasheet and pinout.
+2. Confirm battery chemistry, capacity, and charging/protection design.
+3. Verify the switch and battery connector positions against the physical enclosure.
+4. Run KiCad ERC and DRC.
+5. Export Gerbers and a final BOM from the reviewed board.
+6. Fit-check the enclosure against the assembled PCB before ordering parts.
+
+This folder is a draft starting point, not a manufacturer-ready board.
