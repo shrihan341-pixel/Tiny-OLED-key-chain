@@ -1,77 +1,50 @@
-# Tiny OLED Keychain
+# Tiny OLED Keychain — Wandering Faces
 
-A compact mini keychain that shows animated digital faces drifting across a 128×64 OLED. This repository contains a practical starter package for a direct-view OLED keychain using a Seeed Studio XIAO ESP32-C3, a 1.3-inch OLED module, a LiPo battery, and a compact slide switch.
+A pocket-sized keychain concept that shows animated digital faces wandering across a directly viewed 128×64 OLED. The intended controller is a Seeed Studio XIAO ESP32-C3 SMD. The enclosure concept has a front display window, a side switch opening, a rear cover, and a keyring loop. There is no hologram or beam-splitter block in this design.
 
-## Project summary
+## Project status — prototype concept, not fabrication-approved
 
-The concept uses a minimal body that keeps the screen visible and the overall product easy to carry. The project is built around a small direct-view display rather than a hologram or beam-splitter cube. The case is designed to feel like a modern compact accessory while keeping enough internal space for the battery and controller.
+This repository is being developed as an original project. The display, battery, switch, and PCB are not yet finalized or purchased. The CAD dimensions are placeholders, the firmware needs to be configured for the chosen display controller, and the electronics have not been validated. Do not order a PCB or assemble a LiPo-powered prototype from these concept files alone.
 
-## Hardware concept
+## Intended hardware
 
-- Controller: Seeed Studio XIAO ESP32-C3 SMD
-- Display: 1.3-inch OLED, 128×64 pixels
-- Power: single-cell LiPo battery
-- Switching: slide power switch
-- Form factor: portable keychain / pocket companion
-- Enclosure: 3D-printed compact body with a direct front display opening
+- Seeed Studio XIAO ESP32-C3 SMD
+- 1.3-inch 128×64 OLED module; confirm whether its controller is SH1106, SSD1306, or another type and verify its interface/pinout
+- Single-cell LiPo battery with an appropriate, verified charging/protection arrangement
+- Slide switch selected to suit the actual power path and mechanical cutout
+- Custom PCB, keyring, and 3D-printed enclosure
 
-## Repository structure
+The reference schematic/BOM shared during planning describes a 0.96-inch OLED and does not show the proposed battery or slide switch. It is not the final schematic for this 1.3-inch battery-powered design. The reference project also includes a beam-splitter cube; that part is intentionally excluded here.
 
-- `README.md` — overview and build notes
-- `BOM.csv` — preliminary parts list
-- `CAD/` — OpenSCAD case concept and design notes
-- `PCB/` — KiCad planning notes and placement guidance
-- `Firmware/` — firmware scaffold and animation placeholder
-- `Production/` — assembly and manufacturing checklist
-- `LICENSE` — MIT license
+## Repository map
 
-## Design direction
+- `BOM.csv` — proposed parts and unresolved selection/verification status
+- `CAD/case.scad` — adjustable OpenSCAD enclosure concept; not a measured fit
+- `CAD/README.md` — CAD assumptions and export instructions
+- `PCB/README.md` — current electrical design status and required KiCad checks
+- `Firmware/main.ino` — animated face demo using U8g2; display driver selection is configurable
+- `Firmware/README.md` — libraries, configuration, and flash instructions
+- `Production/README.md` — fabrication-readiness and safety checklist
+- `PROJECT_SUMMARY.md` — concise project brief
 
-This repository is intentionally structured as a complete project package rather than a partial experiment. The default enclosure is a compact rounded body with:
+## Build / preview
 
-- a wider front OLED aperture
-- a slim power-switch slot
-- a keyring loop on the top edge
-- a rear panel that can be adjusted for battery fit and print tolerance
+### CAD
 
-## Important notes
+Open `CAD/case.scad` in OpenSCAD. Set `part` to `"body"` or `"cover"`, render, then export each STL separately. Dimensions are deliberately adjustable; compare the model against the actual PCB, OLED module, battery, and switch before printing. See `CAD/README.md`.
 
-This project package is a strong starting point, but the exact enclosure should still be tuned to the actual purchased module and battery dimensions. The PCB and battery are not yet finalized in the uploaded schematics, so the case dimensions are intentionally parameterized for easy modification.
+### Firmware
 
-Before ordering final PCBs or printing the final case, confirm:
+Install the Arduino IDE, ESP32 board support for XIAO ESP32-C3, and the U8g2 library. Select the OLED controller in `Firmware/main.ino`, then build and test with the exact display module. See `Firmware/README.md`.
 
-- OLED board width, height, and bezel thickness
-- display active window location
-- battery dimensions and polarity
-- switch body size and actuator clearance
-- PCB mounting-hole spacing and component height
+### Electronics
 
-## BOM
+The repository does not yet include a finalized KiCad schematic or routed board. The available reference schematic/BOM is for a different configuration and must not be treated as manufacturing data for this project. See `PCB/README.md` before creating fabrication files.
 
-See `BOM.csv` for the initial component list.
+## Fabrication review checklist
 
-## CAD workflow
+A reviewer should be able to find the native KiCad schematic and board, verified BOM, checked Gerbers/drill outputs, source CAD plus STEP/STL exports, firmware and build instructions, assembly notes, and truthful status photos or renders. At present, several of these deliverables are not complete; the checklist in `Production/README.md` records them without claiming approval.
 
-Open `CAD/case.scad` in OpenSCAD and render the body or cover. Adjust the variable block near the top of the file to match the exact hardware dimensions before printing. The included notes describe the main fitting considerations.
+## Attribution and scope
 
-## Firmware workflow
-
-The firmware is intentionally scaffolded so that the display animation logic can be implemented cleanly. Use the selected OLED library and confirm the power and I2C/SPI bus configuration with the exact board revision before writing the final animation code.
-
-## Production preparation
-
-Use `Production/README.md` to track:
-
-- PCB export review
-- case fit testing
-- battery insulation and power protection checks
-- enclosure print validation
-- final wiring and assembly test
-
-## License
-
-This project is released under the MIT License. See `LICENSE` for details.
-
-## Submission note
-
-This repository is arranged to function as a project submission package: it contains the core concept, parts list, file structure, CAD starter, firmware scaffold, and production guidance in one place.
+This is an original direct-view keychain concept, not a copy of the referenced Hologram-Keychain design. The reference was used only to understand the general organization of a hardware project. Do not include its design files, images, or BOM as if they were created for this project. Review the referenced project's license before reusing any of its materials.

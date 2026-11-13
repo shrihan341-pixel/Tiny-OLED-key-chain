@@ -1,19 +1,16 @@
-# Tiny OLED Keychain project package
+# Project summary
 
-This repository includes a compact direct-view OLED keychain concept meant to be easy to expand into a real prototype project. It is structured for a clean GitHub submission and contains the general mechanical, electrical, and firmware scaffolding needed to begin development.
+**Tiny OLED Keychain — Wandering Faces** is a portable keychain concept for a Seeed Studio XIAO ESP32-C3 and a directly viewed 128×64 OLED. Animated digital eyes wander across the display and blink. The intended power source is a single-cell LiPo with a slide switch, subject to a completed and reviewed battery/power design.
 
-## Included files
+Unlike the referenced hologram project, this design has no beam-splitter cube. The proposed display is 1.3 inches, but the controller, module dimensions, battery, switch, and final PCB have not yet been selected or physically validated.
 
-- `README.md` — project overview and usage notes
-- `BOM.csv` — component list
-- `CAD/case.scad` — parametric enclosure concept
-- `CAD/README.md` — case design tuning notes
-- `PCB/README.md` — PCB planning notes
-- `Firmware/README.md` — display and firmware planning notes
-- `Firmware/main.ino` — firmware starter file
-- `Production/README.md` — production and assembly checklist
-- `LICENSE` — MIT license
+## Current deliverables
 
-## Project status
+- Parametric OpenSCAD enclosure concept
+- Arduino/U8g2 animated-face firmware demo
+- Preliminary BOM
+- PCB and fabrication readiness notes
 
-This project is a polished concept pack, not a final certified fabrication package. It has been prepared so it is ready to share and build upon.
+## Status
+
+Concept/prototype planning only. No final KiCad board, verified Gerbers, physical fit test, measured BOM, or working-device test evidence is included yet. See the root README and `Production/README.md` for the items needed before fabrication review.

@@ -1,21 +1,17 @@
 # CAD notes
 
-This version is a more compact direct-view OLED keychain concept: a rounded enclosure with a large front OLED window, a slim slide-switch opening, and a top keyring loop. It is still a design starting point rather than a verified fit, because the exact PCB outline, OLED board dimensions, battery dimensions, and switch body dimensions were not supplied.
+`case.scad` is a parametric OpenSCAD concept for a direct-view OLED keychain: a rounded body, front display aperture, side switch slot, keyring loop, and separate rear cover. It contains no beam-splitter/hologram block. It is not a final fit-checked model because no exact modules or PCB dimensions have been selected.
 
-## Recommended measurements before final printing
+## Current limitations
 
-- OLED module board size, active display size, and bezel thickness
-- PCB outline and mounting-hole geometry
-- Battery length/width/thickness and lead direction
-- Switch body length/width and the required operation clearance
-- Any connector or charging/protection hardware that must sit inside the case
+- The envelope, screen opening, switch opening, wall, and fit dimensions are assumptions.
+- There are no measured OLED retention features, PCB standoffs, battery restraints, charge-port cutout, or verified cover fastening method.
+- The current concept has not been validated with a slicer, physical prototype, or assembled electronics.
 
-## Tuning notes
+## Before printing the final enclosure
 
-- Increase `window_w` and `window_h` if you want a larger visible display area.
-- Increase `case_w` and `case_h` if you want more internal space for a larger battery.
-- Adjust `switch_slot_w`, `switch_slot_h`, and `switch_pos_x` to fit the actual switch.
-- Use `tol` to tune the friction fit on your printer.
-- If the cover is too loose or too tight, alter `tol` and the cover recess dimensions.
+Confirm the OLED module board size, thickness, active-area position, and connector direction; PCB outline, thickness, mounting-hole centres, and component heights; battery dimensions and lead exit; switch body and actuator requirements; charging connector access; and wire bend/strain-relief space. Update the parameters and add supports/cutouts from those measurements. Ensure the battery cannot be pinched, punctured, or compressed by the cover.
 
-The file is ready for OpenSCAD preview and export to STL. Print a quick fit-check before committing to your final version.
+## Preview and export
+
+Open with OpenSCAD. Set `part` to `"body"`, render (F6), and export STL; repeat with `part = "cover"`. Inspect the mesh in a slicer, print a fit-check, and tune `fit_clearance`. For a neutral STEP assembly export, use a CAD tool that supports STEP and check the geometry there; do not describe an unverified export as a production-ready fit.
