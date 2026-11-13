@@ -1,0 +1,9 @@
+Component,Quantity,Notes
+Seeed Studio XIAO ESP32-C3 SMD,1,Main controller; confirm board revision and physical clearance
+1.3-inch 128x64 OLED module,1,Confirm controller IC interface pinout and module dimensions before purchase
+Single-cell LiPo battery,1,Choose only after measuring available cavity; use a suitable protected/charging arrangement
+Slide power switch,1,Select a part that fits the case and switch the power path safely
+Custom PCB,1,Use verified KiCad design and board dimensions
+3D-printed enclosure,1 set,Parametric OpenSCAD concept in CAD/case.scad; requires fit validation
+Keyring,1,Size to the printed loop and intended use
+Fasteners or retention material,As needed,Choose after enclosure and PCB mounting method are finalized
